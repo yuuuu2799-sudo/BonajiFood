@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonaji Food | Stay Healthy with Natural Herbs</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Tiro+Bangla&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Swiper CSS for Slider -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="contact-info">
+                <span><i class="fas fa-phone"></i> +8801618985546</span>
+                <span><i class="fas fa-envelope"></i> bonajifoodnet@gmail.com</span>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/bonaji.food"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.facebook.com/bonaji.food"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/bonaji.food"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+               <a href="/"> BONAJI FOOD</a><span>.</span>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="/" class="active">HOME</a></li>
+                    <li><a href="/#products">OUR PRODUCTS</a></li>
+                    <li><a href="/#feature-Video-Section">SERVICES</a></li>
+
+                    <!-- Logic for Pro Membership Button -->
+        {% if session.get('user') %}
+            <!-- If logged in: Show Dashboard with a "Pro" styling -->
+
+            <!-- If logged in, check if status is Verified -->
+            {% if session['user']['Status'] == 'Verified' %}
+
+            <li>
+                <a href="/dashboard" class="pro-nav-btn verified-member">
+                    <i class="fas fa-user-crown"></i> MY DASHBOARD
+                </a>
+            </li>
+        {% else %}
+            <!-- If NOT logged in: Show the Join button -->
+                    <li><a href="/dashboard" class="pro-nav-btn pending-member">PENDING VERIFY</a></li>
+                    
+        {% endif %}
+
+                    <li><a href="/logout" style="color:red;">LOGOUT</a></li>
+        {% else %}
+                    <li><a href="/membership" class="pro-nav-btn">PRO MEMBERSHIP</a></li>
+        {% endif %}
+
+                    <li><a href="/#video-Gallery-Section">Videos</a></li>
+                    <li><a href="/#fotter-Contact">CONTACT</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero reveal-vibe">
+        <div class="hero-text-wrapper">
+            <span id="first-letter">প্রাকৃতিক ভাবে</span>
+            <span id="second-letter">রোগের নিরাময় করুন</span>
+            <span id="third-letter">সুস্থ সবল জীবন গড়ুন</span>
+        </div>
+        <p>আমাদের প্রাচীন আয়ুর্বেদ ফর্মুলা দিয়ে সুস্বাস্থ্য জীবন গড়ুন ! ফিট থাকুন, এবং আপনার শরীরকে দিন নতুন শক্তি।</p>
+        <div class="hero-btns">
+            <a href="#products" class="btn btn-primary">এখনই অর্ডার করুন</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+<section class="products-section" id="products">
+    <div class="container">
+        <h2 class="section-title">আমাদের ঔষধ সমূহ</h2>
+        <!-- Grid for Products -->
+        <div class="product-grid" id="product-list">
+            <!-- Products with internal sliders will be injected by JS -->
+            <!-- JavaScript will inject cards here -->
+        </div>
+    </div>
+</section>
+
+<br>
+
+<!-- 1. Featured Video Section (Autoplay/Loop) -->
+<section class="feature-video-section" id="feature-Video-Section">
+    <div class="container">
+        <h2 class="section-title03">আমাদের বিশেষ ভিডিও</h2>
+        <div class="video-wrapper">
+            <!-- Replace 'YOUR_VIDEO_URL' with your direct video file link or YouTube embed link -->
+            <iframe 
+                src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1147794047067711%2F&show_text=0&autoplay=1&mute=1" 
+                class="main-video"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                allowfullscreen="true"> 
+            </iframe>
+        </div>
+    </div>
+</section>
+
+
+<!-- Product Showcase Section -->
+<section class="product-showcase">
+    <div class="container">
+        <h2 class="section-title05">আমাদের পণ্যের বিস্তারিত তথ্য</h2>
+        <div id="showcase-container">
+            <!-- JavaScript will inject items here -->
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<!-- 2. Video Gallery Slider Section -->
+<section class="video-gallery-section reveal-vibe" id="video-Gallery-Section">
+    <div class="container">
+        <h2 class="section-title04">পণ্য সম্পর্কিত ভিডিও গ্যালারি</h2>
+        
+        <div class="swiper video-slider">
+            <div class="swiper-wrapper" id="video-list">
+                <!-- 6 Video Boxes will be injected here by JS -->
+            </div>
+            <!-- Pagination dots -->
+            <div class="swiper-pagination video-pagination"></div>
+        </div>
+    </div>
+</section>
+
+<br>
+
+    <!-- Customer Review Section -->
+<section class="reviews-section reveal-vibe">
+    <div class="container">
+        <h2 class="section-title02">সম্মানিত কাস্টমার রিভিউ</h2>
+        
+        <div class="swiper review-slider">
+            <div class="swiper-wrapper" id="review-list">
+                <!-- 15 Review Photos will be injected here by JS -->
+            </div>
+            <!-- Optional: Navigation dots for reviews -->
+            <div class="swiper-pagination review-pagination"></div>
+        </div>
+    </div>
+</section>
+
+    <!-- Floating Contact Buttons -->
+
+<div class="floating-contact">
+    <!-- Shopping Button -->
+    <a href="#products" class="contact-icon shopping" title="Shop Now">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="label">Shop Now</span>
+    </a>
+
+    <!-- Phone Button -->
+    <a href="tel:+8801618985546" class="contact-icon phone" title="Call Us">
+        <i class="fas fa-phone-alt"></i>
+        <span class="label">Call Now</span>
+    </a>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/8801618985546" target="_blank" class="contact-icon whatsapp" title="WhatsApp Us">
+        <i class="fab fa-whatsapp"></i>
+        <span class="label">WhatsApp</span>
+    </a>
+
+</div>
+
+
+
+    <!-- ORDER MODAL (POPUP) -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Confirm Your Order</h3>
+            <form id="orderForm">
+
+
+                <div class="field">
+        <input type="text" id="custName" oninput="checkModalForm()" placeholder="আপনার নাম লিখুন" required>
+        
+        <p id="modalNamWarning" style="color: red; font-size: 12px; display: none; margin-top: 2px; font-weight: bold;">
+            ⚠️ অনুগ্রহ করে সম্পুর্ন নাম লিখুন
+        </p>
+        
+    </div>
+
+    <!-- Mobile -->
+    <div class="field">
+        <input type="tel" id="custMobile" maxlength="11" 
+               oninput="validatePhoneRealTime(this, 'custAddress', 'modalMobileWarning'); checkModalForm();" 
+               placeholder="মোবাইল নম্বর (01xxxxxxxxx)" required>
+        <p id="modalMobileWarning" style="color: red; font-size: 12px; display: none; margin-top: 2px; font-weight: bold;">
+            ⚠️ অনুগ্রহ করে 01 দিয়ে শুরু করুন (১১ ডিজিটের)
+        </p>
+    </div>
+
+    <!-- Address -->
+    <div class="field">
+        <textarea id="custAddress" oninput="checkModalForm()" disabled 
+                  placeholder="আগে সঠিক মোবাইল নম্বর লিখুন" required></textarea>
+        <p id="modalAddrWarning" style="color: red; font-size: 12px; display: none; margin-top: 2px; font-weight: bold;">
+            ⚠️ অনুগ্রহ করে সম্পুর্ন ঠিকানা লিখুন (অন্তত ১০টি অক্ষর)
+        </p>
+    </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-shopping-bag"></i> পণ্যের নাম</label>
+                    <input type="text" id="prodName" readonly>
+                </div>
+
+                <div class="form-group" id="weightGroup" style="display:none;">
+                    <label><i class="fas fa-balance-scale"></i> ওজন (বাদাম চাটনি)</label>
+                    <select id="prodWeight">
+                        <option value="950">1/2 KG - 950 Bdt</option>
+                        <option value="1700">1 KG - 1700 Bdt</option>
+                        <option value="3000">2 KG - 3000 Bdt</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-list-ol"></i> পরিমাণ</label>
+                    <input type="number" id="prodQty" value="1" min="1" max="10">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-shipping-fast"></i> ডেলিভারি চার্জ (ঢাকার ভিতরে / বাহিরে)</label>
+                    <select id="shippingLoc">
+                        <option value="50">Inside Dhaka (50 Bdt)</option>
+                        <option value="100">Outside Dhaka (100 Bdt)</option>
+                    </select>
+                </div>
+
+                <div class="total-box">
+                    Total Price: <span id="totalPriceDisplay">0</span> টাকা
+                </div>
+
+                <button type="submit" class="btn-submit" id="modalSubmitBtn" disabled>অর্ডার কনফার্ম করুন</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <h3>Order Successful!</h3>
+            <div id="orderHistory"></div>
+            <button onclick="closeConfirmModal()" class="btn-submit">Close</button>
+        </div>
+    </div>
+
+
+    <!-- Main Order Section -->
+<section class="main-order-section" id="order-form">
+    <div class="container">
+        <h2 class="section-title05">সরাসরি অর্ডার করুন</h2>
+        
+        <div class="order-box-wrapper">
+            <form id="directOrderForm">
+                <div class="form-grid">
+                    <!-- Name -->
+                    <div class="field">
+                        <label><i class="fas fa-user"></i> আপনার নাম লিখুন</label>
+                        <input type="text" id="dirCustName" oninput="checkLandingForm()" placeholder="নাম লিখুন" required>
+
+                        <p id="namWarning" style="color: red; font-size: 13px; font-weight: bold; display: none; margin-top: 5px;">
+                            ⚠️ অনুগ্রহ করে সম্পুর্ন নাম লিখুন
+                        </p>
+
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="field">
+                        <label><i class="fas fa-phone-alt"></i> মোবাইল নাম্বার লিখুন</label>
+                        <input type="tel" id="dirCustMobile" maxlength="11" oninput="validatePhoneRealTime(this, 'dirCustAddress', 'dirWarning'); checkLandingForm();" placeholder="01xxxxxxxxx" required>
+
+                        <!-- Warnming Message Container -->
+                         <p id="dirWarning" style="color: red; font-size: 12px; display: none; margin-top: 5px; font-weight: bold;">
+                            ⚠️ অনুগ্রহ করে 01 দিয়ে শুরু করুন (১১ ডিজিটের)
+                         </p>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="field full-row">
+                        <label><i class="fas fa-map-marker-alt"></i> আপনার সম্পুর্ন ঠিকানা লিখুন</label>
+                        <textarea id="dirCustAddress" oninput="checkLandingForm()" disabled placeholder="আগে সঠিক মোবাইল নম্বর লিখুন" required></textarea>
+
+                        <!-- Address Warning Message -->
+                        <p id="addrWarning" style="color: red; font-size: 13px; font-weight: bold; display: none; margin-top: 5px;">
+                            ⚠️ অনুগ্রহ করে সম্পুর্ন ঠিকানা লিখুন (অন্তত ১০টি অক্ষর)
+                        </p>
+
+                    </div>
+
+                    <!-- Product Select -->
+                    <div class="field">
+                        <label><i class="fas fa-shopping-bag"></i> পণ্য নির্বাচন করুন</label>
+                        <select id="dirProdSelect" onchange="handleDirectProductChange()">
+                            <option value="">পণ্য পছন্দ করুন</option>
+                            <option value="7 Days Course" data-price="500">৭ দিনের কোর্স (৫০০ টাকা)</option>
+                            <option value="Weight Loss Pack" data-price="850">ওয়েট লস প্যাক (৮৫০ টাকা)</option>
+                            <option value="Allergy Remedy" data-price="850">এলার্জি রেমিডি (৮৫০ টাকা)</option>
+                            <option value="Gastro Care" data-price="600">গ্যাস্ট্র কেয়ার (৬০০ টাকা)</option>
+                            <option value="Badam Chatni" data-price="950">বাদাম চাটনি</option>
+                        </select>
+                    </div>
+
+                    <!-- Dynamic Weight Box -->
+                    <div class="field" id="dirWeightBox" style="display:none;">
+                        <label><i class="fas fa-balance-scale"></i> ওজন (বাদাম চাটনি)</label>
+                        <select id="dirProdWeight" onchange="calculateDirectTotal()">
+                            <option value="950">১/২ কেজি - ৯৫০ টাকা</option>
+                            <option value="1700">১ কেজি - ১৭০০ টাকা</option>
+                            <option value="3000">২ কেজি - ৩০০০ টাকা</option>
+                        </select>
+                    </div>
+
+                    <!-- Quantity -->
+                    <div class="field">
+                        <label><i class="fas fa-list-ol"></i> পরিমাণ</label>
+                        <input type="number" id="dirProdQty" value="1" min="1" onchange="calculateDirectTotal()">
+                    </div>
+
+                    <!-- Shipping -->
+                    <div class="field">
+                        <label><i class="fas fa-shipping-fast"></i> ডেলিভারি চার্জ (ঢাকার ভিতরে / বাহিরে)</label>
+                        <select id="dirShipping" onchange="calculateDirectTotal()">
+                            <option value="50">ঢাকার ভিতরে (৫০ টাকা)</option>
+                            <option value="100">ঢাকার বাহিরে (১০০ টাকা)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Price Summary -->
+                <div class="price-summary">
+                    সর্বমোট মূল্য: <span id="dirTotalDisplay">০</span> টাকা
+                </div>
+
+                <!-- CONFIRM BUTTON AT THE END -->
+                <button type="submit" class="confirm-btn-final btn-order shimmer" id="dirSubmitBtn" disabled>
+                    অর্ডার কনফার্ম করুন
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="grid-4">
+                <div class="footer-col">
+                    <h4>BONAJI FOOD</h4>
+                    <p>We Care For Your Health & Beauty. Stay with Natural Herbs(Bonaji Food),<br> Follow us! On Facebook : (https//www.facebook.com/bonaji.food)</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="www.facebook.com/bonaji.food">About Us</a></li>
+                        <li><a href="www.facebook.com/bonaji.food">Our Services</a></li>
+                        <li><a href="www.facebook.com/bonaji.food">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col" id="fotter-Contact">
+                    <h4>Contact</h4>
+                    <p>Confidence Center, Progati Sharani Road, Shahjadpur Bus Stand, Badda,<br> Dhaka-1212.<br>Contact : +8801618985546<br>Email : bonajifoodnet@gmail.com</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Email">
+                        <button>GO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

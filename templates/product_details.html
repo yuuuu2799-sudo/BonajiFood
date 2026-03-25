@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ p.name }} | Bonaji Food</title>
+    
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Tiro+Bangla&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Main External CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+
+
+/* --- Floating Contact Buttons Start --- */
+
+.floating-contact {
+    position: fixed;
+    right: 20px;
+    bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 9999; /* Ensures it stays above everything */
+}
+
+.contact-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 25px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Shopping Button specific color */
+.contact-icon.shopping {
+    background-color: #ff9800; /* Vibrant Orange */
+    margin-bottom: 5px; /* Extra space to separate from contact icons */
+    animation: pulse-yellow 2s infinite;
+}
+
+/* Hover label for Shopping */
+.contact-icon.shopping:hover .label {
+    background: #ff9800;
+}
+
+.contact-icon.shopping .label::after {
+    border-left-color: #ff9800;
+}
+
+/* Dynamic Swing Animation for the Shopping Icon */
+.contact-icon.shopping i {
+    animation: basket-swing 2s infinite ease-in-out;
+}
+
+@keyframes basket-swing {
+    0%, 100% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+}
+
+/* WhatsApp Style */
+.contact-icon.whatsapp {
+    background-color: #25D366;
+    animation: pulse-green 2s infinite;
+}
+
+/* Call Style */
+.contact-icon.phone {
+    background-color: #007bff;
+    animation: pulse-blue 2s infinite;
+}
+
+/* Label that pops out on hover */
+.contact-icon .label {
+    position: absolute;
+    right: 70px;
+    background: #03b92b;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.contact-icon.phone .label {
+    position: absolute;
+    right: 70px;
+    background: #007bff;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+/* Label Arrow */
+.contact-icon .label::after {
+    content: "";
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #333;
+}
+
+/* Hover Effects */
+.contact-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+
+.contact-icon:hover .label {
+    opacity: 1;
+    visibility: visible;
+    right: 65px;
+}
+
+/* Dynamic Pulse Animation for WhatsApp */
+@keyframes pulse-green {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 158, 35, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+@keyframes pulse-blue {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 69, 211, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+@keyframes pulse-yellow {
+    0% {
+            box-shadow: 0 0 0 0 #ff9800;
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+        }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .floating-contact {
+        right: 15px;
+        bottom: 20px;
+    }
+    .contact-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+    }
+    .contact-icon .label {
+        display: none; /* Hide labels on mobile to keep it clean */
+    }
+}
+
+/* Ensure the floating container handles 3 buttons well on mobile */
+@media (max-width: 768px) {
+    .floating-contact {
+        gap: 10px;
+    }
+    .contact-icon {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+
+/* --- Floating Contact Buttons End --- */
+
+
+
+/* --- Header --- */
+.main-header {
+    background: var(--white);
+    padding: 20px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--dark-blue);
+}
+
+.logo span { color: var(--primary); }
+
+.navbar ul {
+    display: flex;
+    align-items: center;
+}
+
+.navbar ul li {
+    margin-left: 15px;
+}
+
+.navbar ul li a {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-main);
+    border: 1px solid #0e9102;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+/* Hover & Active State for PC */
+.navbar ul li a:hover, 
+.navbar ul li a.active {
+    color: var(--primary);
+    border-color: var(--primary); /* Border turns blue on hover */
+    background-color: rgba(37, 99, 235, 0.05); /* Very light blue background */
+}
+
+
+.navbar ul li a:hover, .navbar ul li a.active {
+    color: var(--primary);
+}
+
+/* --- Mobile Menu Responsive Styles --- */
+
+/* 1. Hide the hamburger icon on Desktop */
+.mobile-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: var(--dark-blue);
+    
+}
+
+@media (max-width: 768px) {
+    /* 2. Show hamburger icon on Mobile */
+    .mobile-toggle {
+        display: block;
+    }
+
+    /* 3. Re-style the Navbar for Mobile */
+    .navbar {
+        display: none; /* Hidden by default on mobile */
+        position: absolute;
+        top: 100%; /* Appears right below the header */
+        left: 0;
+        width: 100%;
+        background-color: #000000;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        padding: 20px 0;
+        
+        z-index: 1000;
+    }
+
+    /* 4. When .active is added via JS, show the menu */
+    .navbar.active {
+        display: block;
+    }
+
+    /* 5. Stack the menu links vertically */
+    .navbar ul {
+        flex-direction: column;
+        width: 100%;
+        padding: 0 20px;
+        
+        
+    }
+
+    .navbar ul li {
+        margin-left: 0; /* Remove desktop margin */
+        margin-bottom: 10px;
+        width: 50%;
+        
+    }
+
+    .navbar ul li a {
+        display: block;
+        color: #fff;
+        text-align: center;
+        font-size: 15px;
+        padding: -5px;
+        border: 1px solid #0e9102;
+        width: 100%;
+        
+    }
+}
+
+/* --- Mobile Menu Responsive Styles END --- */
+
+
+
+        /* Video Section Styles */
+        .landing-video-section { padding: 15px 0; background: #fdfdfd; text-align: center; }
+        .video-wrapper-block {
+            max-width: 350px;
+            height: 600px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: #000;
+            border: 4px solid #f0f0f0;
+            object-fit: contain;
+        }
+        .video-wrapper-block iframe { 
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .section-title02 {
+            display: inline-block;
+            border: 0.5px solid #ccc;     /* Light outer square */
+            outline: 1px solid var(--dark-blue); /* Dark inner square offset */
+            outline-offset: -5px;      /* Pulls the outline inside */
+            padding: 5px 15px;
+            margin-bottom: 5px;
+            color: var(--dark-blue);
+        }
+
+        @media (max-width: 768px) {
+            .video-wrapper-block { max-width: 90%; height: 600px; }
+            .product-info-grid { grid-template-columns: 1fr; }
+        }
+
+
+        #title_orderForm {
+            margin-top: -20px;
+            margin-bottom: 20px;
+        }
+         /* Video Section Styles Ends */
+
+        #title-hero {
+            font-size: 2.2rem;
+            color: #ffffff;
+            -webkit-text-stroke: 18px rgb(4, 109, 13);
+            paint-order: stroke fill; 
+            font-weight: bold;
+        }
+
+        /* Landing Page Specific Styles */
+        .info-container {
+            text-align: left;
+            padding: 20px 0;
+        }
+
+        .product-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+       /* #image-product {
+            padding: 10px;
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        } */
+
+        .info-image img {
+            padding: 7px;
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .info-text h2 {
+            color: #1e3a8a;
+            margin-top: -15px;
+            margin-bottom: 2px;
+            font-family: 'Tiro Bangla', serif;
+            /* font-size: 50px; */
+            text-align: center;
+        }
+        #title-product {
+            font-size: 40px;
+        }
+
+        .info-text h3 {
+            color: #008d0c;
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .info-text hr {
+            margin: 20px 0;
+            border: 0;
+            border-top: 1px solid #eee;
+        }
+
+        .info-text h4 {
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+       /* .info-text p {
+            color: #555;
+            line-height: 1.8;
+        } */
+
+        #description-product {
+            background: #f9fafb;
+            padding: 25px;
+            border-left: 5px solid #2563eb;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        #ingredients-product {
+            background: #f9fafb;
+            padding: 25px;
+            border-left: 5px solid #2563eb;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefits-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Tiro Bangla', serif;
+            font-size: 1.2rem;
+        }
+
+        .benefits-list i {
+            color: #008d0c;
+            margin-left: 15px;
+            
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .product-info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-text h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+/* Confirmation Reply Button Start */
+
+        /* Existing btn-submit is likely green or blue */
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background: #046d0d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Style for the secondary Close button */
+.btn-submit2 {
+    width: 100%;
+    padding: 12px;
+    background: #6c757d; /* Professional Gray color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-submit2:hover {
+    background: #495057; /* Darker gray on hover */
+}
+
+/* Ensure the 'x' icon works too */
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #aaa;
+}
+.close-modal:hover { color: #000; }
+
+
+/* Confirmation Reply Button End */
+    
+
+/* Prime Look for Pro Membership Button */
+.pro-nav-btn {
+    border: 2px solid #64ffda !important; /* Mint Green / Cyan border */
+    color: #64ffda !important;
+    padding: 6px 18px !important;
+    border-radius: 50px;
+    font-weight: bold !important;
+    transition: 0.3s;
+    background: transparent;
+    text-shadow: 0 0 5px rgba(100, 255, 218, 0.3);
+}
+
+.pro-nav-btn:hover {
+    background: #64ffda !important;
+    color: #0a192f !important; /* Dark Blue from your theme */
+    box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
+}
+
+/* Styling when user is logged in */
+.pro-nav-btn.logged-in {
+    border-color: #ffd700 !important; /* Golden for Verified members */
+    color: #ffd700 !important;
+}
+
+/* Golden border for Verified Members */
+    .verified-member {
+        border: 2px solid #ffd700 !important;
+        color: #ffd700 !important;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+    /* Orange/Gray for Pending Members */
+    .pending-member {
+        border: 2px solid #ff8c00 !important;
+        color: #ff8c00 !important;
+    }
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Standard Header -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="contact-info">
+                <span><i class="fas fa-phone"></i> +8801618985546</span>
+                <span><i class="fas fa-envelope"></i> bonajifoodnet@gmail.com</span>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/bonaji.food"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="/"> BONAJI FOOD</a><span>.</span>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="/" class="active">HOME</a></li>
+                    <li><a href="/#products">OUR PRODUCTS</a></li>
+                    <li><a href="/#feature-Video-Section">SERVICES</a></li>
+
+                        <!-- Logic for Pro Membership Button -->
+        {% if session.get('user') %}
+            <!-- If logged in: Show Dashboard with a "Pro" styling -->
+
+            <!-- If logged in, check if status is Verified -->
+            {% if session['user']['Status'] == 'Verified' %}
+
+            <li>
+                <a href="/dashboard" class="pro-nav-btn verified-member">
+                    <i class="fas fa-user-crown"></i> MY DASHBOARD
+                </a>
+            </li>
+        {% else %}
+            <!-- If logged in but still Pending -->
+                    <li><a href="/dashboard" class="pro-nav-btn pending-member">PENDING VERIFY</a></li>
+
+        {% endif %}
+                    
+                    <li><a href="/logout" style="color:red;">LOGOUT</a></li>
+        {% else %}
+                    <li><a href="/membership" class="pro-nav-btn">PRO MEMBERSHIP</a></li>
+        {% endif %}
+                    
+                    <li><a href="/#video-Gallery-Section">Videos</a></li>
+                    <li><a href="/#fotter-Contact">CONTACT</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Product Hero -->
+    <section class="hero">
+        <div class="hero-text-wrapper">
+            <span id="title-hero">{{ p.hero_msg }}</span>
+        </div>
+        <p id="hero-paragraph">{{ p.hero_p }}</p>
+        <div class="hero-btns">
+            <a href="#order-form" class="btn btn-primary">এখনই অর্ডার করুন</a>
+        </div>
+    </section>
+
+    <!-- Product Info Section -->
+    <section class="products-section">
+        <div class="container info-container">
+            <div class="product-info-grid">
+                
+                <div class="info-image" id="image-product">
+                    <!-- Removing 'static/' from string because url_for adds it -->
+                    <img src="{{ url_for('static', filename=p.image.replace('static/','').replace('Image/','Image/')) }}" alt="{{ p.name }}">
+                </div>
+
+                <div class="info-text">
+                    <h2 id="title-product">{{ p.name }}</h2>
+                    <h3>১০০% প্রাকৃতিক ও বিশুদ্ধ</h3>
+                    <hr>
+                    
+                    <h4>বিস্তারিত বিবরণ:</h4>
+                    <div id="description-product">
+                    <p>{{ p.description }}</p>
+                    </div>
+
+                    <h4>উপাদানসমূহ:</h4>
+                    <div id="ingredients-product">
+                    <p>{{ p.ingredients }}</p>
+                    </div>
+
+                    <h4>উপকারিতা:</h4>
+                    <ul class="benefits-list">
+                        {% for benefit in p.benefits %}
+                        <li><i class="fas fa-check-circle"></i> {{ benefit }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- NEW VIDEO SECTION -->
+    <section class="landing-video-section">
+        <div class="container">
+            <h2 class="section-title02">বিস্তারিত ভিডিও দেখুন</h2>
+            <div class="video-wrapper-block">
+                <iframe src="{{ p.video_url }}" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true"></iframe>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Main Order Section -->
+    <!-- Fixed Order Section -->
+    <section class="main-order-section" id="order-form">
+        <div class="container">
+            <h2 class="section-title02" id="title_orderForm">সরাসরি অর্ডার করুন</h2>
+            <div class="order-box-wrapper">
+                <form id="directOrderForm">
+                    <input type="hidden" id="dirProdSelect" value="{{ p.name }}">
+                    <div class="form-grid">
+                        <div class="field"><label><i class="fas fa-user"></i> নাম লিখুন</label><input type="text" id="dirCustName" oninput="checkLandingForm()" placeholder="নাম লিখুন" required>
+                        
+                        <p id="namWarning" style="color: red; font-size: 13px; font-weight: bold; display: none; margin-top: 5px;">
+                        ⚠️ অনুগ্রহ করে সম্পুর্ন নাম লিখুন
+                        </p>
+                        
+                        </div>
+                        <div class="field"><label><i class="fas fa-phone-alt"></i> মোবাইল নাম্বার লিখুন</label><input type="tel" id="dirCustMobile" maxlength="11" oninput="validatePhoneRealTime(this, 'dirCustAddress', 'dirWarning'); checkLandingForm();" placeholder="01xxxxxxxxx" required>
+                        
+                            <!-- Warnming Message Container -->
+                         <p id="dirWarning" style="color: red; font-size: 12px; display: none; margin-top: 5px; font-weight: bold;">
+                            ⚠️ অনুগ্রহ করে 01 দিয়ে শুরু করুন (১১ ডিজিটের)
+                         </p>
+
+                        </div>
+                        <div class="field full-row"><label><i class="fas fa-map-marker-alt"></i> আপনার সম্পুর্ন ঠিকানা লিখুন</label><textarea id="dirCustAddress" oninput="checkLandingForm()" disabled placeholder="আগে সঠিক মোবাইল নম্বর লিখুন" required></textarea>
+                        
+                            <!-- Address Warning Message -->
+                        <p id="addrWarning" style="color: red; font-size: 13px; font-weight: bold; display: none; margin-top: 5px;">
+                            ⚠️ অনুগ্রহ করে সম্পুর্ন ঠিকানা লিখুন (অন্তত ১০টি অক্ষর)
+                        </p>
+
+                        </div>
+                        
+                        {% if slug == "badam-chatni" %}
+                        <div class="field">
+                            <label><i class="fas fa-balance-scale"></i> ওজন নির্বাচন করুন</label>
+                            <select id="dirProdWeight" onchange="calculateDirectTotal()">
+                                <option value="950">১/২ কেজি - ৯৫০ টাকা</option>
+                                <option value="1700">১ কেজি - ১৭০০ টাকা</option>
+                            </select>
+                        </div>
+                        {% endif %}
+
+                        <div class="field"><label><i class="fas fa-list-ol"></i> পরিমাণ</label><input type="number" id="dirProdQty" value="1" min="1" onchange="calculateDirectTotal()"></div>
+                        <div class="field"><label><i class="fas fa-shipping-fast"></i> ডেলিভারি এরিয়া</label>
+                            <select id="dirShipping" onchange="calculateDirectTotal()">
+                                <option value="50">ঢাকার ভিতরে (৫০ টাকা)</option>
+                                <option value="100">ঢাকার বাহিরে (১০০ টাকা)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="price-summary">সর্বমোট মূল্য: <span id="dirTotalDisplay">0</span> টাকা</div>
+                    <button type="submit" class="confirm-btn-final btn-order shimmer" id="dirSubmitBtn" disabled>অর্ডার কনফার্ম করুন</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Confirmation Modal -->
+<div id="confirmModal" class="modal">
+    <div class="modal-content" style="text-align:center;">
+        <!-- Optional: Small 'x' icon at the top right -->
+        <span class="close-modal" onclick="closeConfirmModal()">&times;</span>
+
+        <div id="orderHistory"></div>
+        
+        <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+            <button onclick="window.location.href='/'" class="btn-submit">হোম পেজে ফিরে যান</button>
+            <button onclick="closeConfirmModal()" class="btn-submit2">বন্ধ করুন (Close)</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <!-- Floating Contact Buttons -->
+
+<div class="floating-contact">
+    <!-- Shopping Button -->
+    <a href="#order-form" class="contact-icon shopping" title="Shop Now">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="label">Shop Now</span>
+    </a>
+
+    <!-- Phone Button -->
+    <a href="tel:+8801618985546" class="contact-icon phone" title="Call Us">
+        <i class="fas fa-phone-alt"></i>
+        <span class="label">Call Now</span>
+    </a>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/8801618985546" target="_blank" class="contact-icon whatsapp" title="WhatsApp Us">
+        <i class="fab fa-whatsapp"></i>
+        <span class="label">WhatsApp</span>
+    </a>
+
+</div>
+
+
+
+     <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="grid-4">
+                <div class="footer-col">
+                    <h4>BONAJI FOOD</h4>
+                    <p>We Care For Your Health & Beauty. Stay with Natural Herbs(Bonaji Food),<br> Follow us! On Facebook : (https//www.facebook.com/bonaji.food)</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="www.facebook.com/bonaji.food">About Us</a></li>
+                        <li><a href="www.facebook.com/bonaji.food">Our Services</a></li>
+                        <li><a href="www.facebook.com/bonaji.food">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <p>Confidence Center, Progati Sharani Road, Shahjadpur Bus Stand, Badda,<br> Dhaka-1212.<br>Contact : +8801618985546<br>Email : bonajifoodnet@gmail.com</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Email">
+                        <button>GO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Scripts -->
+    
+    <script>
+        const currentBasePrice = {{ p.price }};
+        const isBadamPage = {{ 'true' if slug == 'badam-chatni' else 'false' }};
+
+        function calculateDirectTotal() {
+            const weightEl = document.getElementById('dirProdWeight');
+            let base = (isBadamPage && weightEl) ? parseInt(weightEl.value) : currentBasePrice;
+            let qty = parseInt(document.getElementById('dirProdQty').value) || 1;
+            let ship = parseInt(document.getElementById('dirShipping').value) || 50;
+            document.getElementById('dirTotalDisplay').innerText = (base * qty) + ship;
+        }
+
+        // 1. Check on Page Load if user is blocked
+window.onload = function() {
+    calculateDirectTotal();
+    checkOrderBlock(); 
+};
+
+function checkOrderBlock() {
+    const lastOrderTime = localStorage.getItem('lastBonajiOrder');
+    if (lastOrderTime) {
+        const now = new Date().getTime();
+        const diff = now - parseInt(lastOrderTime);
+        const twentyFourHours = 24 * 60 * 60 * 1000;
+
+        if (diff < twentyFourHours) {
+            // User is blocked - Disable the form
+            const formBox = document.querySelector('.order-box-wrapper');
+            const hoursLeft = Math.round((twentyFourHours - diff) / (1000 * 60 * 60));
+            
+            formBox.innerHTML = `
+                <div style="text-align:center; padding: 20px;">
+                    <i class="fas fa-clock" style="font-size: 50px; color: #ea580c;"></i>
+                    <h3 style="margin-top:15px; color: #c2410c;">অর্ডার সীমাবদ্ধ!</h3>
+                    <p>আপনি ইতিমধ্যে একটি অর্ডার করেছেন। পুনরায় অর্ডার করতে আরও <br> কিছুক্ষণ অপেক্ষা করুন।</p>
+                    <p style="font-size: 13px; color: #666; margin-top:10px;">জরুরী প্রয়োজনে আমাদের কল করুন: 01912616261, 01618985546</p>
+                </div>
+            `;
+        }
+    }
+}
+
+
+// --- Main Form Mobile Number Input Limitation Start ---
+
+
+/**
+ * Monitors the landing page form and enables/disables the button
+ */
+function checkLandingForm() {
+    const name = document.getElementById('dirCustName').value.trim();
+    const mobile = document.getElementById('dirCustMobile').value.trim();
+    const address = document.getElementById('dirCustAddress').value.trim();
+    const submitBtn = document.getElementById('dirSubmitBtn');
+    const addrWarning = document.getElementById('addrWarning');
+    const namWarning = document.getElementById('namWarning');
+
+    // Validation Conditions
+    const isNameValid = name.length > 2;
+    const isMobileValid = mobile.startsWith('01') && mobile.length === 11;
+    const isAddressValid = address.length >= 10;
+    
+    if (name.length > 0 && name.length < 3) {
+        namWarning.style.display = "block";
+    } else {
+        namWarning.style.display = "none";
+    }
+
+    if (address.length > 0 && address.length < 10) {
+        addrWarning.style.display = "block";
+    } else {
+        addrWarning.style.display = "none";
+    }
+
+    if (isNameValid && isMobileValid && isAddressValid) {
+        submitBtn.disabled = false; // ENABLE BUTTON
+        submitBtn.style.opacity = "1";
+    } else {
+        submitBtn.disabled = true;  // DISABLE BUTTON
+    }
+}
+
+/**
+ * Re-using your existing Phone Validation logic with a small addition 
+ * to check the form state every time someone types.
+ */
+function validatePhoneRealTime(inputEl, nextFieldId, warningId) {
+    const val = inputEl.value.replace(/\D/g, ''); 
+    inputEl.value = val; 
+    
+    const nextField = document.getElementById(nextFieldId);
+    const warning = document.getElementById(warningId);
+    const isValid = val.startsWith('01') && val.length === 11;
+
+    if (isValid) {
+        nextField.disabled = false;
+        nextField.placeholder = "গ্রাম/বাসা, থানা, জেলা";
+        warning.style.display = "none";
+        inputEl.style.border = "2px solid #008d0c";
+    } else {
+        nextField.disabled = true;
+        nextField.placeholder = "আগে সঠিক মোবাইল নম্বর লিখুন";
+        inputEl.style.border = "2px solid red";
+        if (val.length > 0) warning.style.display = "block";
+    }
+}
+
+
+// --- Main Form Mobile Number Input Limitation End ---
+
+
+
+
+
+
+        // Form Submission logic
+        document.getElementById('directOrderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('dirSubmitBtn');
+            btn.disabled = true;
+            btn.innerText = "অর্ডার যাচাই করা হচ্ছে...";
+
+            const orderData = {
+                CustomerName: document.getElementById('dirCustName').value,
+                Mobile: document.getElementById('dirCustMobile').value,
+                Address: document.getElementById('dirCustAddress').value,
+                Product: document.getElementById('dirProdSelect').value,
+                Quantity: document.getElementById('dirProdQty').value,
+                Weight: isBadamPage ? document.getElementById('dirProdWeight').options[document.getElementById('dirProdWeight').selectedIndex].text : "N/A",
+                ShippingType: document.getElementById('dirShipping').options[document.getElementById('dirShipping').selectedIndex].text,
+                Total: document.getElementById('dirTotalDisplay').innerText
+            };
+
+            try {
+                const response = await fetch('/submit-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+
+                const result = await response.json();
+
+                if (response.status === 200) {
+                    localStorage.setItem('lastBonajiOrder', new Date().getTime()); // Save block time
+                    document.getElementById('orderHistory').innerHTML = `
+                        <div style="font-size: 50px;">🎉🛍️</div>
+                        <h3 style="color:#046d0d">অর্ডার সফল হয়েছে!</h3>
+                        <p>ধন্যবাদ <b>${orderData.CustomerName}</b>, আপনার <b>${orderData.Product}</b> এর অর্ডারটি আমরা পেয়েছি।</p>
+                        <p>মোট মূল্য: ${orderData.Total} Bdt</p>
+                    `;
+                    document.getElementById('confirmModal').style.display = 'block';
+                }
+
+                else if (response.status === 403) {
+            // BLOCKED BY SERVER
+            alert(result.message);
+            btn.disabled = false;
+            btn.innerText = "অর্ডার কনফার্ম করুন";
+        }
+
+            } catch (error) {
+                alert("ত্রুটি হয়েছে। আবার চেষ্টা করুন।");
+                btn.disabled = false;
+                btn.innerText = "অর্ডার কনফার্ম করুন";
+            }
+        });
+
+
+// Order Confirmation Reply Start
+
+        function closeConfirmModal() {
+    // Hide the confirmation modal
+    document.getElementById('confirmModal').style.display = 'none';
+    
+    // Optional: Refresh the page to clear the form
+    // location.reload(); 
+}
+
+// Close modal if user clicks anywhere outside the white box
+window.onclick = function(event) {
+    let modal = document.getElementById('confirmModal');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+// Order Confirmation Reply End
+
+
+        // --- Mobile Menu Toggle Start ---
+
+const mobileToggle = document.querySelector('.mobile-toggle');
+const navbarMenu = document.querySelector('.navbar');
+
+if (mobileToggle) {
+    mobileToggle.addEventListener('click', () => {
+        // Toggle the 'active' class on the navbar
+        navbarMenu.classList.toggle('active');
+
+        // Optional: Change icon from 'bars' to 'X' when open
+        const icon = mobileToggle.querySelector('i');
+        if (navbarMenu.classList.contains('active')) {
+            icon.classList.replace('fa-bars', 'fa-times');
+        } else {
+            icon.classList.replace('fa-times', 'fa-bars');
+        }
+    });
+}
+
+// Close menu when a link is clicked (useful for landing pages)
+document.querySelectorAll('.navbar a').forEach(link => {
+    link.addEventListener('click', () => {
+        navbarMenu.classList.remove('active');
+        const icon = mobileToggle.querySelector('i');
+        icon.classList.replace('fa-times', 'fa-bars');
+    });
+});
+
+// --- Mobile Menu Toggle END ---
+
+
+    </script>
+</body>
+</html>

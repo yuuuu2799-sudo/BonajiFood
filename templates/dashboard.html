@@ -1,0 +1,105 @@
+<div class="profile-card">
+    <div class="user-header">
+        <div class="avatar"> <img src="{{ user.photo or 'default.png' }}"> </div>
+        <div class="user-meta">
+            <h2 style="text-align: center; font-size: 50px; color: #01fa2a; background: linear-gradient(90deg, #112240, #255423); padding: 20px 10px;">{{ user.FullName }} 
+                <span class="verified-badge"><i class="fas fa-check-circle"></i></span>
+            </h2>
+            <p class="status-text">Your account is verified ✅</p>
+        </div>
+    </div>
+    
+    <div class="offer-banner">
+        🎉 Welcome Pro Member! You have <strong>20% Flat Discount</strong> on all items.
+    </div>
+</div>
+
+<div class="backToHome">
+  <a href="/" class="backToHome-button">
+    Back To Home
+  </a>
+</div>
+
+<style>
+    .backToHome {
+  display: flex;
+  justify-content: center; /* Centering it horizontally as we discussed! */
+  padding: 50px;
+}
+
+.backToHome-button {
+  /* Layout & Shape */
+  display: inline-block;
+  padding: 25px 32px;
+  border-radius: 30px;
+  
+  /* Colors & Text */
+  background-color: #007bff;
+  color: white;
+  text-decoration: none; /* Removes the underline from the link */
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 50px;
+  
+  /* The "Dynamic" Secret: Transition */
+  transition: all 0.3s ease; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover State: What happens when the mouse is over it */
+.backToHome-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px); /* Lifts the button up slightly */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Active State: What happens when it's clicked */
+.backToHome-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+    .verified-badge {
+        color: #ffae00;
+        font-size: 20px;
+        animation: pulse 2s infinite; 
+    }
+    .status-text {
+        color: #f200fa;
+        font-weight: bold;
+        font-style: italic;
+        text-shadow: 0 0 10px rgba(72, 255, 0, 0.5);
+        text-align: center; 
+    
+        
+    }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+    .offer-banner {
+        background: linear-gradient(90deg, #112240, #233554);
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px dashed var(--accent);
+        margin-top: 20px;
+        text-align: center;
+        color: #ffffff;
+        font-size: 30px; 
+    }
+
+    .status-text {
+    background: linear-gradient(90deg, #01fa2a, #000000, #7a0404);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s linear infinite;
+    font-weight: bold;
+    font-size: 66px;
+    }
+
+    @keyframes shine {
+    to { background-position: 200% center; }
+    }
+</style>
