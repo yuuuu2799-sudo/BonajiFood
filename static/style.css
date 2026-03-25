@@ -1,0 +1,1341 @@
+/* --- Global Reset --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    --primary: #2563eb;
+    --dark-blue: #1e3a8a;
+    --text-main: #333;
+    --text-light: #666;
+    --white: #ffffff;
+    --bg-light: #f9fafb;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-main);
+    background-color: var(--white);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+ul { list-style: none; }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+/* --- Top Bar --- */
+.top-bar {
+    background: var(--dark-blue);
+    color: var(--white);
+    padding: 10px 0;
+    font-size: 13px;
+}
+
+.top-bar .container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.top-bar .social-links a {
+    margin-left: 15px;
+}
+
+/* --- Header --- */
+.main-header {
+    background: var(--white);
+    padding: 20px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--dark-blue);
+}
+
+.logo span { color: var(--primary); }
+
+.navbar ul {
+    display: flex;
+    align-items: center;
+}
+
+.navbar ul li {
+    margin-left: 15px;
+}
+
+.navbar ul li a {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-main);
+    border: 1px solid #0e9102;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+/* Hover & Active State for PC */
+.navbar ul li a:hover, 
+.navbar ul li a.active {
+    color: var(--primary);
+    border-color: rgba(60, 255, 0, 0.8); /* Border turns blue on hover */
+    background-color: var(--primary); /* Very light blue background */
+}
+
+
+.navbar ul li a:hover, .navbar ul li a.active {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Prime Look for Pro Membership Button */
+.pro-nav-btn {
+    border: 2px solid #ff00d4 !important; /* Mint Green / Cyan border */
+    color: #ff00d4 !important;
+    padding: 6px 18px !important;
+    border-radius: 50px;
+    font-weight: bold !important;
+    transition: 0.3s;
+    background: transparent;
+    text-shadow: 0 0 5px rgba(100, 255, 218, 0.3);
+}
+
+.pro-nav-btn:hover {
+    background: #ff00d4 !important;
+    color: #0a192f !important; /* Dark Blue from your theme */
+    box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
+}
+
+/* Styling when user is logged in */
+.pro-nav-btn.logged-in {
+    border-color: #ffd700 !important; /* Golden for Verified members */
+    color: #ffd700 !important;
+}
+
+/* Golden border for Verified Members */
+    .verified-member {
+        border: 2px solid #ffd700 !important;
+        color: #ffd700 !important;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+    /* Orange/Gray for Pending Members */
+    .pending-member {
+        border: 2px solid #ff8c00 !important;
+        color: #ff8c00 !important;
+    }
+
+
+
+/* --- Mobile Menu Responsive Styles --- */
+
+/* 1. Hide the hamburger icon on Desktop */
+.mobile-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: var(--dark-blue);
+    
+}
+
+@media (max-width: 768px) {
+    /* 2. Show hamburger icon on Mobile */
+    .mobile-toggle {
+        display: block;
+    }
+
+    /* 3. Re-style the Navbar for Mobile */
+    .navbar {
+        display: none; /* Hidden by default on mobile */
+        position: absolute;
+        top: 100%; /* Appears right below the header */
+        left: 0;
+        width: 100%;
+        background-color: #000000;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        padding: 20px 0;
+        
+        z-index: 1000;
+    }
+
+    /* 4. When .active is added via JS, show the menu */
+    .navbar.active {
+        display: block;
+    }
+
+    /* 5. Stack the menu links vertically */
+    .navbar ul {
+        flex-direction: column;
+        width: 100%;
+        padding: 0 20px;
+        
+        
+    }
+
+    .navbar ul li {
+        margin-left: 0; /* Remove desktop margin */
+        margin-bottom: 10px;
+        width: 50%;
+        
+    }
+
+    .navbar ul li a {
+        display: block;
+        color: #fff;
+        text-align: center;
+        font-size: 15px;
+        padding: -5px;
+        border: 1px solid #0e9102;
+        width: 100%;
+        
+    }
+}
+
+/* --- Mobile Menu Responsive Styles END --- */
+
+
+
+/* --- Particular Section Reveal --- */
+
+/* Initial state: Applied only to sections with this class */
+.reveal-vibe {
+    opacity: 0;
+    transform: translateY(50px);
+    filter: blur(5px);
+    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform, filter;
+}
+
+/* Active state: When the 'appear' class is added via JS */
+.reveal-vibe.appear {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+
+/* --- Hero Section --- */
+.hero {
+    height: 350px;
+    background: url('Image/web-slider02.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--white);
+}
+
+.hero #first-letter, .hero #second-letter, .hero #third-letter {
+    font-family: 'Tiro Bangla', serif;
+    display: inline-block;
+    margin: auto 6px 5px;
+}
+
+.hero #first-letter {
+    font-size: 2rem;
+    color: #ffffff;
+    -webkit-text-stroke: 18px rgb(4, 109, 13);
+    paint-order: stroke fill; 
+    font-weight: bold;       
+}
+
+.hero #second-letter { font-size: 1.8rem; 
+    color: #000000; 
+    font-weight: bold;
+}
+
+.hero #third-letter {
+    font-size: 1.8rem;
+    color: #ffffff;
+    -webkit-text-stroke: 18px rgb(4, 109, 13); 
+    paint-order: stroke fill;
+    font-weight: bold;
+}
+
+.hero p {
+    font-size: 1.27rem;
+    max-width: 700px;
+    margin: 0 auto 10px auto; 
+    color: #000000;
+    font-family: 'Tiro Bangla', serif;
+    font-weight: bold;
+}
+
+/* --- Buttons --- */
+.hero-btns { display: block; }
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.btn-primary { background: #2563eb; color: white; }
+.btn-primary:hover { background: #ff0000; }
+
+
+
+
+/* --- Products Slider Section --- */
+/* --- Products Slider Section --- */
+.products-section { 
+    padding: 10px 0; /* Reduced from 60px to make section shorter */
+    background: #f4f4f4; 
+    text-align: center; 
+}
+
+.section-title { 
+    margin-bottom: 5px; /* Shorter gap */
+    font-size: 1.36rem; 
+}
+
+.products-section .section-title {
+    display: inline-block;
+    border: 0.5px solid #ccc;     /* Light outer square */
+    outline: 1px solid var(--dark-blue); /* Dark inner square offset */
+    outline-offset: -5px;      /* Pulls the outline inside */
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    color: var(--dark-blue);
+}
+
+/* --- Products Grid Layout --- */
+
+/* Grid Setting: 2 columns on mobile, 5 on desktop */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 side-by-side on mobile */
+    gap: 12px;
+    padding: 0;
+}
+
+@media (min-width: 1024px) {
+    .product-grid { 
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    padding: 0; 
+    }
+}
+
+/* Product Card */
+/* --- Product Card Alignment Fix --- */
+/* --- Product Card Overhaul --- */
+
+.product-card { 
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+/* 1. Image Area (Fits properly in the grid) */
+.card-image-area {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Internal Image Slider Height */
+.inner-swiper {
+    width: 100%;
+    height: 160px; /* Mobile height */
+}
+
+@media (min-width: 1024px) {
+    .inner-swiper { height: 219.5px; } /* PC image bigger */
+}
+
+.inner-swiper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* 2. Content Area (Below the image) */
+.card-content-area {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-card h3 {
+    font-size: 18px;
+    margin: 5px 0 10px;
+    min-height: 10px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+/* --- Button Grid Overhaul --- */
+.button-grid {
+    display: grid;
+    grid-template-areas: 
+        "price price"
+        "order info";
+    /* Order gets 2 parts of space, Info gets 1 part */
+    grid-template-columns: 2fr 1fr; 
+    gap: 5px;
+    margin-top: auto;
+}
+
+.btn-card {
+    padding: 12px 2px; /* Vertical height */
+    font-weight: 700;
+    border-radius: 6px;
+    text-align: center;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+/* 1. Price Label (Full Width) */
+.btn-price { 
+    grid-area: price; 
+    background: #f8fafc; 
+    color: var(--dark-blue); 
+    border: 1px dashed #cbd5e1;
+    font-size: 0.8rem;
+    padding: 6px 2px;
+}
+
+/* 2. BIG Order Button (Green) */
+.btn-order { 
+    grid-area: order; 
+    background: #008d0c; 
+    color: #ffffff;
+    font-size: 0.95rem; /* Slightly larger text */
+    position: relative;
+    overflow: hidden;
+    animation: pulse 2s infinite;
+}
+
+/* 3. SMALL Info Button (Blue) */
+.btn-info { 
+    grid-area: info; 
+    background: var(--primary); 
+    color: #fff; 
+    font-size: 0.75rem; /* Smaller text to fit the small box */
+}
+
+/* Dynamic Effects for the BIG Order Button */
+.btn-order::before {
+    content: '';
+    position: absolute; top: 0; left: -150%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+    transform: skewX(-25deg);
+    animation: shimmer 3s infinite;
+}
+
+/* Hover/Active states */
+.btn-order:active { transform: scale(0.95); }
+.btn-info:hover { background: #1d4ed8; }
+
+/* PC Adjustment: Keep the ratio but increase overall size */
+@media (min-width: 1024px) {
+    .button-grid { grid-template-columns: 2.2fr 0.8fr; gap: 8px; }
+    .btn-order { font-size: 1.1rem; }
+    .btn-info { font-size: 0.9rem; }
+}
+
+/* Animations */
+@keyframes shimmer { 0% { left: -150%; } 30% { left: 150%; } 100% { left: 150%; } }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+
+/* --- Feature Video Style Start --- */
+.feature-video-section {
+    padding: 15px 0;
+    background: #fff;
+    text-align: center;
+}
+
+.video-wrapper {
+    width: 100%;
+    max-width: 350px;
+    height: 600px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    background: #000;
+    position: relative;
+    border: 4px solid #f0f0f0;
+    object-fit: contain;
+}
+
+.main-video {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    object-fit: contain;
+}
+
+/* --- Mobile Responsive Adjustment --- */
+@media (max-width: 768px) {
+    .video-wrapper {
+        max-width: 90%;  /* Makes it slightly wider on mobile */
+        height: 600px;   /* Slightly shorter so it fits on mobile screens */
+    }
+}
+
+
+/* --- Feature Video Style End --- */
+
+
+/* --- Product Showcase Start --- */
+
+.product-showcase {
+    padding: 60px 0;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.showcase-item {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 80px;
+    text-align: left;
+}
+
+/* The Magic: Alternates Left and Right */
+.showcase-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.showcase-image {
+    flex: 1;
+}
+
+.showcase-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.showcase-image img:hover {
+    transform: translateY(-10px);
+}
+
+.showcase-content {
+    flex: 1;
+}
+
+.showcase-content h3 {
+    font-family: 'Tiro Bangla', serif;
+    font-size: 2rem;
+    color: var(--dark-blue);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* Small underline for title */
+.showcase-content h3::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--primary);
+    border-radius: 2px;
+}
+
+.showcase-content p {
+    font-family: 'Tiro Bangla', serif;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #444;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .showcase-item, .showcase-item:nth-child(even) {
+        flex-direction: column; /* Stack vertically on mobile */
+        gap: 20px;
+        margin-bottom: 50px;
+        text-align: center;
+    }
+    
+    .showcase-content h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+
+
+
+/* --- Showcase Dissolve Animation --- */
+
+.showcase-item {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 80px;
+    text-align: left;
+    
+     /* State when OFF screen */
+    opacity: 0;
+    transform: translateY(50px);    /* Moves down */
+    filter: blur(5px);              /* Optional: Adds a slight blur when hidden */
+
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform filter;
+}
+
+.section-title05 {
+    display: inline-block;
+    border: 1px solid #ccc;
+    outline: 1.5px solid var(--dark-blue);
+    outline-offset: -6px;
+    padding: 8px 15px;
+    margin-bottom: 25px;
+    color: var(--dark-blue);
+    font-family: 'Tiro Bangla', serif;
+    font-size: 1.3rem;
+}
+
+/* State when ON screen (active) */
+.showcase-item.appear {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+/* Alternating rows logic remains the same */
+.showcase-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+/* Optional: Add a slight delay to the content so image and text feel layered */
+.showcase-item.appear .showcase-content {
+    transition-delay: 0.3s;
+}
+
+/* Mobile stacking */
+@media (max-width: 768px) {
+    .showcase-item, .showcase-item:nth-child(even) {
+        flex-direction: column !important;
+        text-align: center;
+        gap: 20px;
+        transform: translateY(30px);            /* Shorter movement for mobile */
+    }
+}
+
+/* --- Product Showcase End --- */
+
+
+
+/* --- Video Gallery Slider Start --- */
+
+.video-gallery-section {
+    padding: 30px 0;
+    background: #f9f9f9;
+    text-align: center;
+}
+
+.video-slider {
+    padding-bottom: 50px;
+}
+
+.video-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    object-fit: contain;
+}
+
+.video-frame {
+    object-fit: contain;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+}
+.video-card iframe, .video-card video {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 9 / 16;
+    border: none;
+    display: block;
+}
+
+.video-touch-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.2); /* Slight dark tint over the video */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+/* The Play Icon Style */
+.video-touch-overlay i {
+    font-size: 70px;
+    margin: 13px -1.8px 0 0;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 0 15px rgba(0,0,0,0.5);
+    pointer-events: none; /* Icon won't block the click */
+}
+
+/* When the video is clicked, hide the overlay */
+.video-frame.is-playing .video-touch-overlay {
+    opacity: 0;
+    pointer-events: none; /* Now the click goes directly to the iframe */
+}
+
+.video-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+/* Optional: If you want the video to be clickable after a slight delay 
+   or through the play button, we keep it simple for swiping first */
+.video-card:active .video-touch-overlay {
+    pointer-events: none; /* Allows clicking the video if they press and hold */
+}
+
+
+/* Square Border Title Styling (matching your theme) */
+.section-title03 {
+    display: inline-block;
+    border: 1px solid #ccc;
+    outline: 1.5px solid var(--dark-blue);
+    outline-offset: -6px;
+    padding: 8px 15px;
+    margin-bottom: 25px;
+    color: var(--dark-blue);
+    font-family: 'Tiro Bangla', serif;
+    font-size: 1.3rem;
+}
+
+.section-title04 {
+    display: inline-block;
+    border: 1px solid #ccc;
+    outline: 1.5px solid var(--dark-blue);
+    outline-offset: -6px;
+    padding: 8px 15px;
+    margin-bottom: 25px;
+    color: var(--dark-blue);
+    font-family: 'Tiro Bangla', serif;
+    font-size: 1.3rem;
+}
+
+/* --- Title Option Per Video --- */
+.video-info {
+    padding: 15px 10px;
+    background: #fff;
+    border-top: 1px solid #eee;
+}
+
+.video-info h4 {
+    font-family: 'Tiro Bangla', serif;
+    font-size: 1.2rem;
+    color: var(--dark-blue);
+    margin: 0;
+    font-weight: bold;
+    /* Ensures title looks clean even if long */
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.video-pagination {
+    bottom: 10px !important;
+}
+
+.video-pagination .swiper-pagination-bullet-active {
+    background: var(--primary) !important;
+}
+
+/* --- Particular Section Reveal --- */
+
+/* Initial state: Applied only to sections with this class */
+.reveal-vibe {
+    opacity: 0;
+    transform: translateY(50px);
+    filter: blur(5px);
+    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform, filter;
+}
+
+/* Active state: When the 'appear' class is added via JS */
+.reveal-vibe.appear {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+/* --- Feature Video Style End --- */
+
+
+/* --- Customer Review Section Start --- */
+
+.reviews-section {
+    padding: 0 0;
+    background: #fff; /* White background to distinguish from product section */
+    text-align: center;
+}
+
+.review-slider {
+    padding: 50px 0 15px; /* Space for dots at the bottom */
+    position: relative;
+}
+
+.section-title02 {
+    margin-bottom: 5px;
+    font-size: 1.36rem;
+}
+
+.reviews-section .section-title02 {
+    display: inline-block;
+    border: 0.5px solid #ccc;     /* Light outer square */
+    outline: 1px solid var(--dark-blue); /* Dark inner square offset */
+    outline-offset: -5px;      /* Pulls the outline inside */
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    color: var(--dark-blue);
+}
+
+.review-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.review-card img {
+    width: auto;
+    max-width: 100%;
+    height: 100%; /* Fixed height for consistency */
+    object-fit: contain; /* Ensures screenshots/photos fill the box nicely */
+    display: block;
+}
+
+/* Review Pagination Dots */
+.review-pagination {
+    bottom: -2px !important;
+}
+
+
+/* --- Review Slider Focus & Blur Effect --- */
+
+.review-slider {
+    padding: 50px 0 !important; /* Extra padding for the scaled-up image */
+}
+
+.review-card {
+    transition: all 0.5s ease; /* Smooth transition for zoom and blur */
+    transform: scale(0.8);     /* Default size for side images */
+    filter: blur(10px);        /* 100% Blur for distant images */
+    opacity: 0.4;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+}
+
+/* 1. The Focused (Active) Slide */
+.swiper-slide-active .review-card {
+    transform: scale(1.15);    /* Make it bigger */
+    filter: blur(0);           /* No blur */
+    opacity: 1;
+    position: relative;
+    z-index: 10;
+    /* Dynamic Glowing Border */
+    box-shadow: 0 0 20px rgba(4, 109, 13, 0.4); 
+    border: 3px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(45deg, #046d0d, #2563eb, #046d0d) border-box;
+    animation: borderRotate 3s linear infinite;
+}
+
+/* 2. The Immediate Neighbors (Next and Previous) */
+/* This creates the 50% blur effect */
+.swiper-slide-next .review-card,
+.swiper-slide-prev .review-card {
+    transform: scale(0.95);
+    filter: blur(3px);         /* 37.5% Blur */
+    opacity: 0.7;
+}
+
+/* Dynamic Border Animation */
+@keyframes borderRotate {
+    100% { background-size: 200% 200%; }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Ensure images fit nicely */
+.review-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+/* Responsive fix for mobile: show more of the focused image */
+@media (max-width: 768px) {
+    .review-card {
+        transform: scale(0.85);
+        filter: blur(2px);
+    }
+    .swiper-slide-active .review-card {
+        transform: scale(1.05);
+        filter: blur(0);
+    }
+}
+
+
+/* --- Customer Review Section End --- */
+
+
+/* --- Floating Contact Buttons Start --- */
+
+.floating-contact {
+    position: fixed;
+    right: 20px;
+    bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 9999; /* Ensures it stays above everything */
+}
+
+.contact-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 25px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Shopping Button specific color */
+.contact-icon.shopping {
+    background-color: #ff9800; /* Vibrant Orange */
+    margin-bottom: 5px; /* Extra space to separate from contact icons */
+    animation: pulse-yellow 2s infinite;
+}
+
+/* Hover label for Shopping */
+.contact-icon.shopping:hover .label {
+    background: #ff9800;
+}
+
+.contact-icon.shopping .label::after {
+    border-left-color: #ff9800;
+}
+
+/* Dynamic Swing Animation for the Shopping Icon */
+.contact-icon.shopping i {
+    animation: basket-swing 2s infinite ease-in-out;
+}
+
+@keyframes basket-swing {
+    0%, 100% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+}
+
+/* WhatsApp Style */
+.contact-icon.whatsapp {
+    background-color: #25D366;
+    animation: pulse-green 2s infinite;
+}
+
+/* Call Style */
+.contact-icon.phone {
+    background-color: #007bff;
+    animation: pulse-blue 2s infinite;
+}
+
+/* Label that pops out on hover */
+.contact-icon .label {
+    position: absolute;
+    right: 70px;
+    background: #03b92b;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.contact-icon.phone .label {
+    position: absolute;
+    right: 70px;
+    background: #007bff;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+/* Label Arrow */
+.contact-icon .label::after {
+    content: "";
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #333;
+}
+
+/* Hover Effects */
+.contact-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+
+.contact-icon:hover .label {
+    opacity: 1;
+    visibility: visible;
+    right: 65px;
+}
+
+/* Dynamic Pulse Animation for WhatsApp */
+@keyframes pulse-green {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 158, 35, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+@keyframes pulse-blue {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 69, 211, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+@keyframes pulse-yellow {
+    0% {
+            box-shadow: 0 0 0 0 #ff9800;
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+        }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .floating-contact {
+        right: 15px;
+        bottom: 20px;
+    }
+    .contact-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+    }
+    .contact-icon .label {
+        display: none; /* Hide labels on mobile to keep it clean */
+    }
+}
+
+/* Ensure the floating container handles 3 buttons well on mobile */
+@media (max-width: 768px) {
+    .floating-contact {
+        gap: 10px;
+    }
+    .contact-icon {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+
+/* --- Floating Contact Buttons End --- */
+
+/* --- Modals --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+
+    /* নিচের লাইন দুটিই স্ক্রল সমস্যার সমাধান করবে */
+    overflow-y: auto;   /* যখন কন্টেন্ট বড় হবে তখন ভার্টিক্যাল স্ক্রল হবে */
+    padding: 20px 0;    /* স্ক্রল করার সময় উপরে-নিচে কিছুটা জায়গা থাকবে */
+}
+
+.modal-content {
+    background: #fff;
+    width: 92%;             /* মোবাইলে একটু বেশি জায়গা নেওয়ার জন্য ৯২% */
+    max-width: 500px;
+    margin: 30px auto;      /* ৫% এর বদলে ফিক্সড মার্জিন মোবাইলে ভালো কাজ করে */
+    padding: 25px;
+    border-radius: 12px;
+    position: relative;
+    text-align: left;
+
+     /* ছোট মোবাইলের জন্য বাড়তি নিরাপত্তা */
+    max-height: none;       /* উচ্চতা নির্দিষ্ট না রেখে কন্টেন্ট অনুযায়ী বাড়বে */
+}
+
+.close-modal {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 32px;
+    cursor: pointer;
+    color: #333;
+    z-index: 2100;            /* নিশ্চিত করা যাতে বাটনটি উপরে থাকে */
+}
+
+
+/* ফর্মের ইনপুট ফিল্ডগুলো মোবাইলে যাতে জুম না হয় তার জন্য */
+
+form input, form textarea, form select {
+    width: 100%;
+    padding: 12px;              /* মোবাইলে টাইপ করতে সহজ হবে */
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;            /* আইফোনে অটো-জুম বন্ধ করতে ১৬ পিক্সেল বেস্ট */
+}
+
+.total-box {
+    background: #fff7ed;
+    padding: 15px;
+    border: 1px dashed #ea580c;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 15px 0;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background: #046d0d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Styling for the disabled Order Button */
+.btn-submit:disabled {
+    background-color: #cccccc !important;
+    color: #666666 !important;
+    cursor: not-allowed !important;
+    animation: none !important; /* Stop the shimmer/pulse while locked */
+    box-shadow: none !important;
+}
+
+
+
+/* --- Main Order Box Styling Start --- */
+
+.main-order-section {
+    padding: 40px 0;
+    background: #f9f9f9;
+    text-align: center;
+}
+
+.section-title05 {
+    display: inline-block;
+    border: 1px solid #ccc;
+    outline: 1.5px solid var(--dark-blue);
+    outline-offset: -6px;
+    padding: 8px 15px;
+    margin-bottom: 25px;
+    color: var(--dark-blue);
+    font-family: 'Tiro Bangla', serif;
+    font-size: 1.3rem;
+}
+
+.order-box-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: var(--dark-blue);
+}
+
+.field input, .field select, .field textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Tiro Bangla', serif;
+}
+
+.full-row { grid-column: span 2; }
+
+/* Price Area */
+.price-summary {
+    margin: 20px 0 10px;
+    padding: 15px;
+    background: #fff8e1;
+    border: 1px dashed #ff8f00;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #e65100;
+}
+
+/* THE BUTTON AT THE END */
+.confirm-btn-final {
+    width: 100%;
+    padding: 18px;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Styling for the disabled Order Button */
+.btn-order:disabled {
+    background-color: #cccccc !important;
+    color: #666666 !important;
+    cursor: not-allowed !important;
+    animation: none !important; /* Stop the shimmer/pulse while locked */
+    box-shadow: none !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .full-row { grid-column: span 1; }
+    .price-summary { font-size: 1.2rem; }
+}
+
+/* Eye-Glance Order Button on Form */
+#dirSubmitBtn {
+    padding: 18px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/*--- Confirmation Message ---*/
+
+/* Animation for the Dynamic Success Emoji */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+#confirmModal .modal-content {
+    border-radius: 20px;
+    border-top: 10px solid #008d0c; /* Success Green Bar */
+}
+
+/* --- Main Order Box Styling End --- */
+
+
+/* --- Footer --- */
+.footer { background: #111; color: #ccc; padding: 60px 0; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+.footer-col h4 { color: var(--white); margin-bottom: 20px; }
+.footer-col ul li { margin-bottom: 10px; }
+.newsletter { display: flex; }
+.newsletter input { padding: 10px; border: none; border-radius: 4px 0 0 4px; width: 100%; }
+.newsletter button { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 0 4px 4px 0; cursor: pointer; }
+
+@media (max-width: 768px) {
+    .grid-4 { grid-template-columns: 1fr; }
+    .navbar { display: none; }
+}
